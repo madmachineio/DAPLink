@@ -27,16 +27,30 @@
 void target_before_init_debug(void)
 {
     // This is for the hardware conflict (the EVK are not consider >2 debugger connection
-    // situation) with another external debugger(such as JLINK). Before drag&pull, to force
-    // RESET pin to high state ensure a successfully access. If external debugger not
-    // connected. It's not necessary for doing that.
-    swd_set_target_reset(0);
+    // situation) with another external debugger(such as JLINK). Before drag&pull, issue a
+    // hardware reset to bring the platform to a known state and also force
+    // RESET pin to high state ensure a successfully access.
 
-    // In some case the CPU will enter "cannot debug" state (low power, SWD pin mux changed, etc.).
-    // Doing a hardware reset will clear those states (probably, depends on app). Also, if the
-    // external flash's data is not a valid bootable image, DAPLink cannot attached to target. A
-    // hardware reset will increase the chance to connect in this situation.
-    target_set_state(RESET_RUN);
+    volatile uint32_t i;
+    uint32_t delay_count;
+
+    #if defined(INTERFACE_K20D5)
+    delay_count = 0x20000;
+    #elif defined(INTERFACE_STM32F103XB)
+    delay_count = 0x20000;
+    #endif
+
+    swd_set_target_reset(1);
+    i = 0;
+    while (i < delay_count) {
+        i++;
+    }
+    
+    swd_set_target_reset(0);
+    i = 0;
+    while (i < delay_count) {
+        i++;
+    }
 }
 
 void board_init(void)

@@ -32,9 +32,9 @@ const char *board_id = "0227";
 __attribute__((aligned(4)))
 const vfs_filename_t daplink_url_name =       "PRODINFOHTM";
 __attribute__((aligned(4)))
-const vfs_filename_t daplink_drive_name =     "RT1050-EVK";
+const vfs_filename_t daplink_drive_name =     "MadDebugger";
 __attribute__((aligned(4)))
-const char *const daplink_target_url = "http://www.nxp.com/imxrt1050evk";
+const char *const daplink_target_url = "https://madmachine.io";
 
 void prerun_board_config(void)
 {

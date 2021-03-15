@@ -493,6 +493,10 @@ projects:
         - *module_if
         - *module_hic_stm32f103xb
         - records/board/stm32f207zg.yaml
+    stm32f103xb_mimxrt1050_evk_qspi_if:
+        - *module_if
+        - *module_hic_stm32f103xb
+        - records/board/mimxrt1050_evk_qspi.yaml
     lpc11u35_mtb_laird_bl654_if:
         - *module_if
         - *module_hic_lpc11u35

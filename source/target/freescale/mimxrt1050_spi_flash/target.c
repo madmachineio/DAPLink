@@ -24,13 +24,25 @@
 // The file flash_blob.c must only be included in target.c
 #include "flash_blob.c"
 
+uint8_t validate_bin_nvic(const uint8_t *buf)
+{
+    if(buf[0] == 'F' && buf[1] == 'C' && buf[2] == 'F' && buf[3] == 'B')
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 // target information
 target_cfg_t target_device = {
     .sector_size    = KB(4),
     .sector_cnt     = 2048,
-    .flash_start    = 0x60002000,
-    .flash_end      = 0x60002000 + MB(64),
+    .flash_start    = 0x60000000,
+    .flash_end      = 0x60000000 + MB(8),
     .ram_start      = 0x20000000,
-    .ram_end        = 0x20000000 + MB(64),
+    .ram_end        = 0x20000000 + KB(512),
     .flash_algo     = (program_target_t *) &flash,
 };

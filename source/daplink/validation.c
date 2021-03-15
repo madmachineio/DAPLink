@@ -28,6 +28,7 @@ static inline uint32_t test_range(const uint32_t test, const uint32_t min, const
     return ((test < min) || (test > max)) ? 0 : 1;
 }
 
+#if defined(DAPLINK_BL)
 __weak uint8_t validate_bin_nvic(const uint8_t *buf)
 {
     // test for known required NVIC entries
@@ -77,6 +78,7 @@ __weak uint8_t validate_bin_nvic(const uint8_t *buf)
 
     return 1;
 }
+#endif
 
 __weak uint8_t validate_hexfile(const uint8_t *buf)
 {
